@@ -16,6 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required("api_token"): str,
+        vol.Required("hostname"): str,
     }
 )
 
@@ -136,7 +137,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             "Authorization": f"Bearer {self.api_token}"
         }
         try:
-            async with session.get("https://cloud.connect-mesh.io/api/core/networks", headers=headers) as response:
+            async with session.get("https://connect-mesh-dev.tools.thingos.app/api/core/networks", headers=headers) as response:
                 if response.status == 200:
                     return await response.json()
                 else:
@@ -154,7 +155,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             "Authorization": f"Bearer {self.api_token}"
         }
         try:
-            async with session.get("https://cloud.connect-mesh.io/api/core/devices", headers=headers) as response:
+            async with session.get("https://connect-mesh-dev.tools.thingos.app/api/core/devices", headers=headers) as response:
                 if response.status == 200:
                     return await response.json()
                 else:
@@ -172,7 +173,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             "Authorization": f"Bearer {self.api_token}"
         }
         try:
-            async with session.get(f"https://cloud.connect-mesh.io/api/core/devices/{unique_id}/status", headers=headers) as response:
+            async with session.get(f"https://connect-mesh-dev.tools.thingos.app/api/core/devices/{unique_id}/status", headers=headers) as response:
                 if response.status == 200:
                     return await response.json()
                 else:

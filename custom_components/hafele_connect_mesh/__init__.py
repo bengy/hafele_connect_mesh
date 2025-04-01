@@ -10,6 +10,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 import aiohttp
 
 from .const import DOMAIN
+from .const import URL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -76,7 +77,7 @@ class ConnectMeshAPI:
         """Initialize the API client."""
         self.session = session
         self.api_token = api_token
-        self.base_url = "https://cloud.connect-mesh.io/api/core"
+        self.base_url = f"{URL}/api/core"
 
     async def get_device_status(self, unique_id: str):
         """Get the status of a device."""
